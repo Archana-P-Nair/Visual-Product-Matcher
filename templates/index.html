@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Product Matcher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0006A6;
+            --primary-light: #eef2ff;
+            --secondary: #e0f2fe;
+            --accent: #7209b7;
+            --light:#E6E6FA
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+        }
+
+        body {
+            background: #D6FAFF;
+            font-family: 'Varela Round', sans-serif;
+
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header-section {
+            background: var(--gradient);
+            color: white;
+            padding: 3rem 0;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .header-section p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .card {
+            border: none;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .upload-section {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-control, .form-range {
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e1e5ee;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .product-card {
+            margin-bottom: 1.5rem;
+            min-height: 380px;
+            transition: all 0.3s ease;
+        }
+
+        .product-card img {
+            height: 200px;
+            object-fit: contain;
+            padding: 1rem;
+            background: var(--primary-light);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .product-card .card-body {
+            padding: 1.25rem;
+        }
+
+        .product-card h5 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card .category {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-badge {
+            background: var(--gradient);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        #loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #loading-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: var(--primary);
+        }
+
+        .uploaded-image-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .uploaded-image-container img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 5px solid white;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background: var(--gradient);
+        }
+
+        .form-range::-moz-range-thumb {
+            background: var(--gradient);
+        }
+
+        .error {
+            color: #e63946;
+            font-weight: 600;
+            text-align: center;
+            padding: 1.5rem;
+            background: #ffebee;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #dee2e6;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        .results-count {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 0.25rem;
+        }
+
+        .input-group-text {
+            background: var(--primary-light);
+            border: 1px solid #e1e5ee;
+        }
+
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 2rem 0;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .header-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section text-center">
+        <div class="container">
+            <h1><i class="fas fa-search me-2"></i>Visual Product Matcher</h1>
+            <p>Find similar products by uploading an image or providing a URL</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="upload-section">
+            <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="file" class="form-label fw-semibold">Upload Image File</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="file" name="file" accept="image/*">
+                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                        </div>
+                        <div class="form-text">Supported formats: JPG, PNG, WebP</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="url" class="form-label fw-semibold">Or Image URL</label>
+                        <div class="input-group">
+                            <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com/image.jpg">
+                            <span class="input-group-text"><i class="fas fa-link"></i></span>
+                        </div>
+                        <div class="form-text">Enter a direct image URL</div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-search me-2"></i>Search Similar Products
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="loading-backdrop"></div>
+        <div id="loading" class="text-center">
+            <div class="spinner-border" role="status"></div>
+            <h5 class="mt-3">Processing Your Image</h5>
+            <p class="text-muted">Finding similar products... This may take a moment.</p>
+        </div>
+
+        <!-- This section will be populated by your backend -->
+        {% if uploaded_img %}
+        <div class="uploaded-image-container">
+            <h3 class="section-title">Your Uploaded Image</h3>
+            <img src="data:image/jpeg;base64,{{ uploaded_img }}" alt="Uploaded" class="img-fluid" style="max-width: 500px;" onerror="this.style.display='none'; alert('Failed to load uploaded image.');">
+        </div>
+
+        {% if results %}
+        <div class="filter-section">
+            <h3 class="section-title">Similar Products</h3>
+            <div class="results-count" id="resultsCount">Showing {{ results|length }} products</div>
+            <div class="mb-3">
+                <label for="scoreFilter" class="form-label fw-semibold">Filter by Similarity Score: <span id="filterValue" class="score-badge">0.50</span></label>
+                <input type="range" class="form-range" id="scoreFilter" min="0" max="1" step="0.01" value="0.50">
+            </div>
+        </div>
+
+        <div id="results" class="row">
+            {% for result in results %}
+            <div class="col-lg-4 col-md-6 product-card" data-score="{{ result.score }}">
+                <div class="card h-100">
+                    <img src="{{ result.image }}" alt="{{ result.name }}" class="card-img-top" onerror="this.src='/static/images/placeholder.jpg'; console.log('Failed to load image for ID {{ result.id }}');">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ result.name }}</h5>
+                        <p class="category"><i class="fas fa-tag me-1"></i>{{ result.category }}</p>
+                        <div class="mt-auto">
+                            <span class="score-badge">Score: {{ result.score }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h4>No Similar Products Found</h4>
+            <p>Try uploading a different image or adjusting your search criteria.</p>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <script>
+        // Loading state
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loading-backdrop').style.display = 'block';
+            // Optional: Add timeout to handle slow responses
+            setTimeout(() => {
+                if (document.getElementById('loading').style.display === 'block') {
+                    document.getElementById('loading').innerHTML = `
+                        <div class="spinner-border" role="status"></div>
+                        <h5 class="mt-3">Still Processing</h5>
+                        <p class="text-muted">This is taking longer than expected. Please wait...</p>
+                    `;
+                }
+            }, 15000); // 15 seconds
+        });
+
+        // Hide loading on page load or error
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('loading-backdrop').style.display = 'none';
+        });
+
+        // Filter results with live update
+        const scoreFilter = document.getElementById('scoreFilter');
+        const filterValue = document.getElementById('filterValue');
+        const resultsCount = document.getElementById('resultsCount');
+
+        function updateResults() {
+            if (!scoreFilter) return;
+
+            const minScore = parseFloat(scoreFilter.value);
+            filterValue.textContent = minScore.toFixed(2);
+            const cards = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const score = parseFloat(card.dataset.score);
+                if (score >= minScore) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (resultsCount) {
+                resultsCount.textContent = `Showing ${visibleCount} of ${cards.length} products`;
+            }
+        }
+
+        if (scoreFilter) {
+            scoreFilter.addEventListener('input', updateResults);
+            updateResults();
+        }
+
+        // Placeholder image handling
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                this.src = '/static/images/placeholder.jpg';
+                console.log(`Image load failed for ${this.src}`);
+            };
+        });
+    </script>
+</body>
+</html>
