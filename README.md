@@ -17,14 +17,14 @@
 
 ## ✨ Features
 
-- 🔍 **Image Similarity Matching** - Find visually similar products from a database
-- 🧠 **Deep Feature Extraction** - Uses pre-trained CNN models for robust feature representation
-- ⚡ **Multiple Backend Options** - Support for both PyTorch and TensorFlow/Keras
-- 🌐 **Web Interface** - User-friendly Flask web application
-- 📈 **Scalable Architecture** - Easy to extend with new models and datasets
-- ⚙️ **Configurable Settings** - Flexible configuration for different use cases
-
-## 🏗️ Project Structure
+- **🔍 CLIP-Powered Matching** - Uses OpenAI's CLIP model for state-of-the-art image-text understanding
+- **🧠 Deep Feature Extraction** - Leverages CLIP's vision transformer for robust image embeddings  
+- **⚡ FAISS Integration** - High-performance similarity search using Facebook's FAISS library
+- **🌐 Flask Web Interface** - User-friendly web application for image upload and URL input
+- **📊 Multiple Input Methods** - Support for both file upload and image URLs
+- **🛒 E-commerce Focused** - Designed for product matching with metadata support
+- **📈 Scalable Indexing** - Efficient FAISS index for large product databases
+- **🎯 Cosine Similarity** - Normalized embeddings for accurate similarity scoring
 
 ## 🚀 Installation
 
