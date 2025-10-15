@@ -48,9 +48,10 @@ Start the Flask server 🚀:
 python app.py
  ```
 3. Access the application 🌍:
+   
 Open your browser and navigate to http://127.0.0.1:5000/
 
-4. Using the application 🎯:
+5. Using the application 🎯:
 
 📤 Upload a query product image
 🔍 The system will return the most similar products from the database
