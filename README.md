@@ -38,4 +38,25 @@
    ```bash
    git clone https://github.com/Archana-P-Nair/Visual_Product_Matcher.git
    cd Visual_Product_Matcherpython -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+
+2. **🌐 Running the Web Application**
+Start the Flask server 🚀:
+ ```bash
+python app.py
+ ```
+3. Access the application 🌍:
+Open your browser and navigate to http://127.0.0.1:5000/
+
+4. Using the application 🎯:
+
+📤 Upload a query product image
+🔍 The system will return the most similar products from the database
+📊 View similarity scores and visual comparisons
+
+
+https://github.com/user-attachments/assets/ea1dee4c-4a85-4883-8838-405b1fe246a6
+
+
